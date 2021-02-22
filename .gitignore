@@ -1,0 +1,15 @@
+# Backup
+*~
+.\#*
+\#*
+
+# IDE 
+.idea
+*.iml
+.bundle
+.DS_Store
+
+# Extra junk
+*.log
+
+
