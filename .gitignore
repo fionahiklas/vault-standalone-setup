@@ -12,4 +12,10 @@
 # Extra junk
 *.log
 
+# Vagrant
+.vagrant
+
+# Test directories and junk
+test
+
 
