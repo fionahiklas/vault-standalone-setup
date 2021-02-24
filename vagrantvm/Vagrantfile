@@ -1,0 +1,56 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# Leave the above since Emacs and vi users like to have the mode/language set :)
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+
+  # Every Vagrant development environment requires a base box. You can search for
+  # boxes at https://app.vagrantup.com/boxes/search
+  # Focal is version 20.04LTS and the current, latest, stable, long term support release 
+  config.vm.box = "ubuntu/focal64"
+
+  # Just forwarding the web ports for now
+  config.vm.network "forwarded_port", guest: 8200, host: 8200
+
+  # Uncomment if you want the hostname of the VM to be set
+  # config.vm.hostname = "vaultvm"
+  
+  # NOTE: Be careful here, the VM has access to *everything* in the home
+  # directory on the host machine
+  config.vm.synced_folder ENV["HOME"], "/vagrant_home", owner: "vagrant", group: "vagrant"
+  
+  
+  config.vm.provider "virtualbox" do |vb|
+    # Ensure the VM is named, the default causes errors
+    vb.name = "VaultVM"
+    
+    # Don't display the GUI, we don't need a full GUI, redirecting X11 should be enough
+    vb.gui = false
+
+    # Customize the amount of memory on the VM:
+    vb.memory = "4096"
+  end
+
+  provision_environment = {
+    "VAULT_AUTH_TOKEN" => ENV["VAULT_AUTH_TOKEN"]
+  }
+
+  config.vm.provision "shell", env: provision_environment , inline: <<-SHELL
+    # Install packages - note, no need to link node to nodejs, this is done already
+    apt update && apt install -y build-essential curl ruby unzip nodejs git emacs openjdk-11-jdk openjdk-11-jdk-headless maven xterm rxvt screen firefox chromium-browser
+
+    # Install HashiCorp key
+    curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
+
+    # Add HashiCorp repo
+    apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"    
+
+    # Install vault
+    apt-get update && sudo apt-get install vault
+
+  SHELL
+end
