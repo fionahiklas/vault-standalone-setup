@@ -33,20 +33,21 @@ Run `podman ps` to list the containers and then `podman logs <container name>` t
 ### Running Vault with Podman - Server Mode
 
 ```
-podman run -d -e 'VAULT_LOCAL_CONFIG={"backend": {"file": {"path": "/vault/file"}}, "default_lease_ttl": "168h", "max_lease_ttl": "720h", "disable_mlock": "true" }' -v $PWD/volumes/logs:/vault/logs -v $PWD/volumes/file:/vault/file -p 8200:8200 vault:1.6.2 server
+podman run -d -e 'VAULT_LOCAL_CONFIG={"backend": {"file": {"path": "/vault/file"}}, "default_lease_ttl": "168h", "max_lease_ttl": "720h", "disable_mlock": "true", "listener": [{ "tcp": { "address": "0.0.0.0:8200", "tls_disable": "true" }}], "ui": "true" }' -v $PWD/volumes/logs:/vault/logs -v $PWD/volumes/file:/vault/file -p 8200:8200 vault:1.6.2 server
 ```
 
 NOTE: The `disable_mlock` option is needed for rootless podman as it's not possible to enable locking by passing in the 
 `--cap-add IPC_LOCK` unless you're launching this as root.
 
-The above command appears to start the vault server but there is no obvious way to connect to it.  Running a shell in the 
-container to investigate using the following command
+
+
+### Running a Shell in a rootless container
+
+Works pretty much as with docker
 
 ```
 podman exec -it <container name/id>  /bin/sh
 ```
-
-
 
 
 ### Preventing other access to environment variables
