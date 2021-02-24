@@ -13,7 +13,7 @@
 
 ## Notes
 
-### Running Podman - Development Mode
+### Running Vault with Podman - Development Mode
 
 ```
 podman run -d -v $PWD/volumes/logs:/vault/logs -v $PWD/volumes/file:/vault/file -p 8200:8200 vault:1.6.2
@@ -28,6 +28,23 @@ You can access the UI for vault using the [URL](http://localhost:8200/ui)
 
 You need the `Root Token` to login to the UI and you can find this in the output from the container.
 Run `podman ps` to list the containers and then `podman logs <container name>` to see the output.
+
+
+### Running Vault with Podman - Server Mode
+
+```
+podman run -d -e 'VAULT_LOCAL_CONFIG={"backend": {"file": {"path": "/vault/file"}}, "default_lease_ttl": "168h", "max_lease_ttl": "720h", "disable_mlock": "true" }' -v $PWD/volumes/logs:/vault/logs -v $PWD/volumes/file:/vault/file -p 8200:8200 vault:1.6.2 server
+```
+
+NOTE: The `disable_mlock` option is needed for rootless podman as it's not possible to enable locking by passing in the 
+`--cap-add IPC_LOCK` unless you're launching this as root.
+
+The above command appears to start the vault server but there is no obvious way to connect to it.  Running a shell in the 
+container to investigate using the following command
+
+```
+podman exec -it <container name/id>  /bin/sh
+```
 
 
 
