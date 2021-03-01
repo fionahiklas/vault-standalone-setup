@@ -41,7 +41,32 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", env: provision_environment , inline: <<-SHELL
     # Install packages - note, no need to link node to nodejs, this is done already
-    apt update && apt install -y build-essential curl ruby unzip nodejs git emacs openjdk-11-jdk openjdk-11-jdk-headless maven xterm rxvt screen firefox chromium-browser
+    apt update && apt install -y build-essential curl ruby unzip nodejs git emacs openjdk-11-jdk openjdk-11-jdk-headless maven xterm rxvt screen firefox net-tools
+
+
+    # ###### #
+    # DOCKER #
+    # ###### #
+
+    # Add dependencies
+    apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+    
+    # Add repo key
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+    # Add Docker repo
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+    # Add Docker 
+    apt update && apt install -y docker-ce docker-ce-cli containerd.io
+
+    # Add Vagrant user to Docker group
+    usermod -a -G docker vagrant
+
+
+    # ##### #
+    # VAULT #
+    # ##### #
 
     # Install HashiCorp key
     curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
@@ -50,7 +75,18 @@ Vagrant.configure("2") do |config|
     apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"    
 
     # Install vault
-    apt-get update && sudo apt-get install vault
+    apt-get update && apt-get install -y vault
 
+    # ###### #
+    # PODMAN #
+    # ###### #
+
+    . /etc/os-release
+    echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/ /" | tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+    curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/Release.key | apt-key add -
+    apt-get update
+    apt-get -y upgrade
+    apt-get -y install podman
+    
   SHELL
 end

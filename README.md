@@ -138,16 +138,23 @@ outside that namespace the files have now been returned to the previous owner.
 * [Podman and newuidmap](https://superuser.com/questions/1529632/why-is-a-normal-user-allowed-to-give-away-a-file-folder-by-running-podman-unsha)
 * [Podman unshare](https://www.mankier.com/1/podman-unshare)
 
+### Docker
 
-## Linux
+* [Installing Docker on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
+
+
+### Linux
 
 * [User namespaces](https://manpages.debian.org/buster/manpages/user_namespaces.7.en.html#User_and_group_ID_mappings:_uid_map_and_gid_map)
 * [Proc filesystem](https://www.kernel.org/doc/Documentation/filesystems/proc.txt)
 * [hidepid /proc](https://linux-audit.com/linux-system-hardening-adding-hidepid-to-proc/)
 * [SSL Load locations, SSL_CERT_DIR](https://www.openssl.org/docs/man1.1.0/man3/SSL_CTX_set_default_verify_paths.html)
+* [Adding user to group](https://www.howtogeek.com/50787/add-a-user-to-a-group-or-second-group-on-linux/)
 
-## Vagrant
+
+### Vagrant
 
 * [Vagrant](https://www.vagrantup.com)
 * [VirtualBox](https://www.virtualbox.org)
 * [Ubuntu 20.04 Focal base box](https://app.vagrantup.com/ubuntu/boxes/focal64)
+* [Enabling host DNS](http://station.clancats.com/3-vagrant-settings-you-should-check-out-to-optimize-your-vm/)
