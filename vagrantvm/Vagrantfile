@@ -33,6 +33,11 @@ Vagrant.configure("2") do |config|
 
     # Customize the amount of memory on the VM:
     vb.memory = "4096"
+
+    # Use the hosts DNS resolution.  This is meant to speed things up and also
+    # allow resolution of addresses from a VPN
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
   end
 
   provision_environment = {

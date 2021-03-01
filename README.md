@@ -7,7 +7,43 @@
 * [Vagrant](https://www.vagrantup.com)
 * [VirtualBox](https://www.virtualbox.org)
 
+### VirtualBox 
 
+Can be downloaded for MacOS or Windows from [here](https://www.virtualbox.org)
+
+Ubuntu 20.04 (and presumably 18.04) has access to VirtualBox from the package repos
+
+```
+apt install virtualbox
+```
+
+
+### VirtualBox Extension Pack
+
+Download this directly from [VirtualBox site](https://download.virtualbox.org/virtualbox/6.1.16/Oracle_VM_VirtualBox_Extension_P
+ack-6.1.16.vbox-extpack)
+
+
+
+### Vagrant
+
+Can be downloaded from the main [Vagrant site](https://www.vagrantup.com)
+
+
+Again vagrant is a package that is available in the Ubuntu repos
+
+```
+apt install vagrant
+```
+
+
+### Vagrant guest additions plugin
+
+In order to have the VirtualBox guest additions installed/upgraded add the following plugin
+
+```
+vagrant plugin install vagrant-vbguest
+```
 
 
 
@@ -158,3 +194,17 @@ outside that namespace the files have now been returned to the previous owner.
 * [VirtualBox](https://www.virtualbox.org)
 * [Ubuntu 20.04 Focal base box](https://app.vagrantup.com/ubuntu/boxes/focal64)
 * [Enabling host DNS](http://station.clancats.com/3-vagrant-settings-you-should-check-out-to-optimize-your-vm/)
+* [Example Vagrant VM with shell provisioning](https://github.com/Hiklas/vagrant_get_into_tech_php)
+* [Issues with long names for VMs](https://forums.virtualbox.org/viewtopic.php?f=7&t=41660)
+* [Setting the name of the VM](https://stackoverflow.com/questions/17845637/how-to-change-vagrant-default-machine-name)
+* [Synced folders](https://www.vagrantup.com/docs/synced-folders/basic_usage)
+* [Using environment variables](https://stackoverflow.com/questions/19648088/pass-environment-variables-to-vagrant-shell-provisioner)
+* [Connecting with SSH](https://stackoverflow.com/questions/22643177/ssh-onto-vagrant-box-with-different-username)
+
+
+### VirtualBox
+
+* [Installing Extension Packs](https://www.virtualbox.org/manual/ch01.html#intro-installing)
+* [Installing packs with CLI](https://www.techrepublic.com/article/how-to-manually-install-the-virtualbox-extension-pack/)
+* [Installing Vagrant vbguest plugin](https://stackoverflow.com/questions/43492322/vagrant-was-unable-to-mount-virtualbox-shared-folders)
+
