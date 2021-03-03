@@ -82,6 +82,7 @@ Vagrant.configure("2") do |config|
     # Install vault
     apt-get update && apt-get install -y vault
 
+
     # ###### #
     # PODMAN #
     # ###### #
@@ -92,6 +93,26 @@ Vagrant.configure("2") do |config|
     apt-get update
     apt-get -y upgrade
     apt-get -y install podman
+
+
+    # ###### #
+    # NODEJS #
+    # ###### #    
+                 
+    # The dependencies for adding the NodeJS package should have been installed             
+    # above.
+    DISTRO=$(lsb_release -cs)
+    NODEREPO=node_14.x
+
+    # Add the key
+    curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+
+    # Adding repos
+    echo "deb https://deb.nodesource.com/${NODEREPO} ${DISTRO} main" > /etc/apt/sources.list.d/nodesource.list 
+    echo "deb-src https://deb.nodesource.com/${NODEREPO} ${DISTRO} main" >> /etc/apt/sources.list.d/nodesource.list
+
+    # Install node
+    apt-get update && apt-get install -y nodejs    
     
   SHELL
 end

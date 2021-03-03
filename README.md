@@ -215,3 +215,7 @@ outside that namespace the files have now been returned to the previous owner.
 * [Installing packs with CLI](https://www.techrepublic.com/article/how-to-manually-install-the-virtualbox-extension-pack/)
 * [Installing Vagrant vbguest plugin](https://stackoverflow.com/questions/43492322/vagrant-was-unable-to-mount-virtualbox-shared-folders)
 
+
+### NodeJS
+
+* [Installing from repos](https://github.com/nodesource/distributions/blob/master/README.md)
